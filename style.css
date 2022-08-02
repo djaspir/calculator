@@ -1,6 +1,7 @@
 /* GOOGLE FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
+
 :root {
     --border: 2px solid #222;
     --border-radius: 10px;
@@ -12,6 +13,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -23,7 +25,7 @@ body {
     overflow: hidden;
     color: #eee;
     background-color: var(--dark);
-    text-align: center;
+    user-select: none;
 }
 
 .header,
@@ -31,6 +33,9 @@ body {
     background-color: #222;
     padding: 28px;
     color: #ddd;
+    white-space: nowrap;
+    text-align: center;
+
 }
 
 .screen {
@@ -38,17 +43,21 @@ body {
     border: var(--border);
     border-radius: var(--border-radius);
     background-color: #888;
-    color: #444
+    color: #444;
+    width: 364px;
+    height: 148px;
+    overflow-x: auto;
+    margin-bottom: 24px;
 }
 
 .top-display {
     font-size: 2rem;
-    padding: 0 18px;
+    margin: 4px 18px;
 }
 
 .bottom-display {
     font-size: 4rem;
-    padding: 0 12px;
+    margin: 0 12px;
 }
 
 .container {
@@ -58,7 +67,7 @@ body {
     border: var(--border);
     border-radius: var(--border-radius);
     background-color: var(--darkest);
-    width: 368px;
+    width: 418px;
     height: auto;
     padding: 24px;
 }
@@ -77,10 +86,6 @@ body {
     color: #eee;
     width: 80px;
     height: 80px;
-}
-
-.screen {
-    margin-bottom: 24px;
 }
 
 .span {
