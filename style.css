@@ -1,0 +1,122 @@
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --border: 2px solid #222;
+    --border-radius: 10px;
+    --dark: #555;
+    --darker: #333;
+    --darkest: #111;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    color: #eee;
+    background-color: var(--dark);
+    text-align: center;
+}
+
+.header,
+.footer {
+    background-color: #222;
+    padding: 28px;
+    color: #ddd;
+}
+
+.screen {
+    text-align: right;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: #888;
+    color: #444
+}
+
+.top-display {
+    font-size: 2rem;
+    padding: 0 18px;
+}
+
+.bottom-display {
+    font-size: 4rem;
+    padding: 0 12px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: var(--darkest);
+    width: 368px;
+    height: auto;
+    padding: 24px;
+}
+
+.btn-grid {
+    display: grid;
+    justify-content: center;
+    gap: 12px;
+    grid-template-columns: auto auto auto auto;
+}
+
+.btn {
+    font-size: 1.5rem;
+    background-color: var(--dark);
+    border-radius: var(--border-radius);
+    color: #eee;
+    width: 80px;
+    height: 80px;
+}
+
+.screen {
+    margin-bottom: 24px;
+}
+
+.span {
+    width: 180px;
+    grid-column: 1 / span 2;
+}
+
+.btn:hover {
+    background: rgba(180, 180, 180, 0.767);
+}
+
+.orange {
+    background-color: rgb(220, 140, 0);
+}
+
+.orange:hover {
+    background-color: rgb(255, 162, 0)
+}
+
+.darker {
+    background-color: rgba(255, 0, 0, 0.653);
+}
+
+.darker:hover {
+    background-color: rgba(255, 0, 0, 0.857);
+}
+
+.light {
+    background-color: #999;
+    color: #111
+}
+
+.light:hover {
+    background-color: #ccc;
+}
+
+.margin {
+    margin-left: 12px;
+}
