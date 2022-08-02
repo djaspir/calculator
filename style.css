@@ -51,6 +51,7 @@ body {
 }
 
 .top-display {
+    height: 40px;
     font-size: 2rem;
     margin: 4px 18px;
 }
