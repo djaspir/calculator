@@ -54,9 +54,11 @@ body {
     height: 40px;
     font-size: 2rem;
     margin: 4px 18px;
+    padding-right: 0px 0px;
 }
 
 .bottom-display {
+    height: 40px;
     font-size: 4rem;
     margin: 0 12px;
 }
@@ -125,4 +127,13 @@ body {
 
 .margin {
     margin-left: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: #aaa
+}
+
+a:hover {
+    color: #fff
 }

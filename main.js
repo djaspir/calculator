@@ -1,36 +1,41 @@
-const number = document.querySelectorAll("[data-number]")
-const operator = document.querySelectorAll("[data-operator]")
-const screenBottom = document.getElementById("screen-bottom")
+// get the calculator keys inside the grid container
+const keys = document.getElementById("calculator-keys")
 
-// Num Click Handler
-const handleNumClick = (e) => {
-    displayBottom(e.target.textContent)
-}
+// event delegation pattern to listen to all the childen of the calculator-keys parent
+keys.addEventListener('click', e => {
+    if (e.target.matches('button')) {
+        // Use data-action attribute to determine the type of key that is clicked
+        const key = e.target
+        const action = key.dataset.action
+        // If the key does not have a data-action attribute, it must e a number key
+        if (!action) {
+            console.log('number key!')
+        }
+        // if key has data-action with the operator keys
+        if (
+            action === 'add' ||
+            action === 'subtract' ||
+            action === 'multiply' ||
+            action === 'divide'
+        ) {
+            console.log('operator key!')
+        }
+        // if key is decimal, clear, delete, and calculate keys
+        if (action === 'decimal') {
+            console.log('decimal key!')
+        }
 
-// 4 Basic Calculator Function
-const add = (num1, num2) => num1 + num2;
-const subtract = (num1, num2) => num1 - num2;
-const multiply = (num1, num2) => num1 * num2;
-const divide = (num1, num2) => num1 / num2;
+        if (action === 'clear') {
+            console.log('clear key!')
+        }
 
-// Operate Function
-const operate = (operator, num1, num2) => {
-    return (operator === "addition") ? add(num1, num2)
-        : (operator === "subtraction") ? subtract(num1, num2)
-            : (operator === "multiplication") ? multiply(num1, num2)
-                : divide(num1, num2)
-}
+        if (action === 'delete') {
+            console.log('delete key!')
+        }
 
-// Display Function
-const displayBottom = num => {
-    screenBottom.textContent += num;
-    if (screenBottom.textContent.indexOf(0) === 0) {
-        return screenBottom.textContent = screenBottom.textContent
-            .split("").slice(1).join("");
+        if (action === 'calculate') {
+            console.log('equal key!')
+        }
     }
-}
-
-
-// Add event listener to number element
-number.forEach(elem => elem.addEventListener("click", handleNumClick))
+})
 
