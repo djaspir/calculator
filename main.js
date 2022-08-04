@@ -1,5 +1,5 @@
 const calculator = document.getElementById("calculator")
-const display = calculator.querySelector("#screen-one")
+const display = calculator.querySelector("#display-one")
 const keys = calculator.querySelector("#keys")
 
 // 4 basic math functions
@@ -16,11 +16,29 @@ const operate = (operator, number1, number2) => {
                 : divide(number1, number2)
 }
 
+const displayNumber = (num) => {
+    // Check if the first number is zero then replace it
+    if (display.textContent === '0') {
+        display.textContent = num;
+    } else {
+        display.textContent += num;
+    }
+}
+
 // Handle calculator key press event function
 const handleKeyPress = (e) => {
-    const key = e.target
-    const action = key.dataset.action
+    // Filter out the calculator keys
+    if (e.target.matches('button')) {
+        const key = e.target
+        const action = key.dataset.action
+
+        // Get number keys
+        if (!action) {
+            displayNumber(key.textContent)
+        }
+    }
 }
+
 
 // Calculator keys event listener function
 keys.addEventListener("click", handleKeyPress)
