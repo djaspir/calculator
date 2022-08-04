@@ -42,9 +42,36 @@ const handleKeyPress = (e) => {
         // When user presses an operator
         if (action === "+" || action === "-" ||
             action === "×" || action === "÷") {
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const finalCalc = calculator.dataset.finalCalc;
+            const secondValue = displayedNumber;
+
+            if (firstValue && operator && finalCalc) {
+                const secondValue = displayedNumber;
+                display.textContent = operate(operator, finalCalc, secondValue)
+                displayTwo.textContent = `${display.textContent} ${operator}`
+                calculator.dataset.previousKeyType = "operator";
+                calculator.dataset.operator = action;
+
+                return calculator.dataset.finalCalc = display.textContent;
+            }
+
+            if (firstValue && operator) {
+                const secondValue = displayedNumber;
+                display.textContent = operate(operator, firstValue, secondValue)
+                displayTwo.textContent = `${display.textContent} ${operator}`
+
+                calculator.dataset.previousKeyType = "operator";
+                calculator.dataset.operator = action;
+                return calculator.dataset.finalCalc = display.textContent;
+            }
+
             // Store the first number in a variable, operator (dataset)
             calculator.dataset.firstValue = displayedNumber;
             calculator.dataset.operator = action;
+
+
             // Display the first value and operator on Top display
             displayTwo.textContent = `${displayedNumber} ${action}`;
             // Make Previous key as Operator
@@ -56,8 +83,6 @@ const handleKeyPress = (e) => {
             const firstValue = calculator.dataset.firstValue;
             const operator = calculator.dataset.operator;
             const secondValue = displayedNumber;
-            console.log(firstValue)
-            console.log(secondValue)
 
             // If firstValue and operator and secondValue is not null
             if (firstValue && operator && secondValue) {
