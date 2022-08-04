@@ -31,10 +31,19 @@ const handleKeyPress = (e) => {
     if (e.target.matches('button')) {
         const key = e.target
         const action = key.dataset.action
+        const displayedNumber = display.textContent
 
         // Get number keys
         if (!action) {
             displayNumber(key.textContent)
+        }
+
+        // When user presses an operator
+        if (action === "+" || action === "-" ||
+            action === "&times;" || action === "÷") {
+            // Store the first number in a variable
+            calculator.dataset.firstValue = displayedNumber;
+            calculator.dataset.operator = action;
         }
     }
 }
