@@ -6,7 +6,7 @@ const keys = calculator.querySelector("#keys")
 const add = (number1, number2) => parseFloat(number1) + parseFloat(number2);
 const subtract = (number1, number2) => parseFloat(number1) - parseFloat(number2);
 const multiply = (number1, number2) => parseFloat(number1) * parseFloat(number2);
-const divide = (number1, number2) => parseFloat(number1) / parseFloat(number2);
+const divide = (number1, number2) => (parseFloat(number1) / parseFloat(number2)).toFixed(2);
 // Operate math function
 const operate = (operator, number1, number2) => {
     return (operator === "+") ? add(number1, number2)
@@ -99,6 +99,12 @@ const handleKeyPress = (e) => {
             const firstValue = calculator.dataset.firstValue;
             const operator = calculator.dataset.operator;
             const secondValue = displayedNumber;
+
+            if (operator === "÷" && firstValue === "1" && secondValue === "0") {
+                alert("MATH ERROR: You can't Divide 1 to 0")
+                clearData("0");
+                return
+            }
 
             if (previousKeyType === "calculate") {
                 const firstValue = calculator.dataset.finalCalc
