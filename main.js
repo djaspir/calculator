@@ -31,7 +31,17 @@ const handleKeyPress = (e) => {
         // Get number keys
         if (!action) {
             // If number is zero or previousKeyType is operator then replace num
-            if (displayedNumber === '0' || previousKeyType === "operator") {
+            if (previousKeyType === "calculate") {
+                display.textContent = "";
+                displayTwo.textContent = "";
+                delete calculator.dataset.previousKeyType
+                delete calculator.dataset.firstValue;
+                delete calculator.dataset.operator;
+                delete calculator.dataset.finalCalc
+                delete calculator.dataset.previousKeyType
+            }
+
+            if (displayedNumber === '0' || previousKeyType === "operator" || previousKeyType === "calculate") {
                 display.textContent = key.textContent;
                 delete calculator.dataset.previousKeyType;
             } else {
@@ -44,28 +54,10 @@ const handleKeyPress = (e) => {
             action === "×" || action === "÷") {
             const firstValue = calculator.dataset.firstValue;
             const operator = calculator.dataset.operator;
+            const currentOperator = action;
             const finalCalc = calculator.dataset.finalCalc;
-            const secondValue = displayedNumber;
 
-            if (firstValue && operator && finalCalc) {
-                const secondValue = displayedNumber;
-                display.textContent = operate(operator, finalCalc, secondValue)
-                displayTwo.textContent = `${display.textContent} ${operator}`
-                calculator.dataset.previousKeyType = "operator";
-                calculator.dataset.operator = action;
 
-                return calculator.dataset.finalCalc = display.textContent;
-            }
-
-            if (firstValue && operator) {
-                const secondValue = displayedNumber;
-                display.textContent = operate(operator, firstValue, secondValue)
-                displayTwo.textContent = `${display.textContent} ${operator}`
-
-                calculator.dataset.previousKeyType = "operator";
-                calculator.dataset.operator = action;
-                return calculator.dataset.finalCalc = display.textContent;
-            }
 
             // Store the first number in a variable, operator (dataset)
             calculator.dataset.firstValue = displayedNumber;
@@ -76,6 +68,41 @@ const handleKeyPress = (e) => {
             displayTwo.textContent = `${displayedNumber} ${action}`;
             // Make Previous key as Operator
             calculator.dataset.previousKeyType = "operator";
+
+            if (previousKeyType === "operator") return
+
+            if (previousKeyType === 'calculate') {
+                calculator.dataset.firstValue = displayedNumber;
+                calculator.dataset.operator = action;
+
+
+                // Display the first value and operator on Top display
+                displayTwo.textContent = `${displayedNumber} ${action}`;
+                // Make Previous key as Operator
+                return calculator.dataset.previousKeyType = "operator";
+            }
+
+            if (firstValue && operator && finalCalc) {
+                const secondValue = displayedNumber;
+                display.textContent = operate(operator, finalCalc, secondValue)
+                displayTwo.textContent = `${display.textContent} ${currentOperator}`
+
+                calculator.dataset.operator = action;
+                calculator.dataset.previousKeyType = "calculate";
+                return calculator.dataset.finalCalc = display.textContent;
+            }
+
+            if (firstValue && operator) {
+                const secondValue = displayedNumber;
+
+                display.textContent = operate(operator, firstValue, secondValue)
+                displayTwo.textContent = `${display.textContent} ${currentOperator}`
+
+
+                calculator.dataset.operator = action;
+                calculator.dataset.previousKeyType = "calculate";
+                return calculator.dataset.finalCalc = display.textContent;
+            }
         }
 
         // When user presses equals button
@@ -84,16 +111,24 @@ const handleKeyPress = (e) => {
             const operator = calculator.dataset.operator;
             const secondValue = displayedNumber;
 
+            if (previousKeyType === "calculate") {
+
+            }
             // If firstValue and operator and secondValue is not null
             if (firstValue && operator && secondValue) {
                 // Execute operate function and display to the screen one and two
                 display.textContent = operate(operator, firstValue, secondValue)
-                displayTwo.textContent = `${display.textContent} ${operator}`
+                displayTwo.textContent = `${firstValue} ${operator} ${secondValue} =`
+
+                calculator.dataset.finalCalc = display.textContent;
+                calculator.dataset.previousKeyType = 'calculate';
             }
         }
 
         // When user presses delete button
         if (action === "delete") {
+            if (previousKeyType === 'calculate') return
+
             if (displayedNumber.length === 1) {
                 display.textContent = "0";
                 return
@@ -104,6 +139,12 @@ const handleKeyPress = (e) => {
         // When user presses clear button
         if (action === "clear") {
             display.textContent = "0";
+            displayTwo.textContent = "";
+            delete calculator.dataset.previousKeyType
+            delete calculator.dataset.firstValue;
+            delete calculator.dataset.operator;
+            delete calculator.dataset.finalCalc
+            delete calculator.dataset.previousKeyType
         }
 
         // When user presses decimal
@@ -111,6 +152,16 @@ const handleKeyPress = (e) => {
             if (display.textContent.includes(".")) return
             if (previousKeyType === 'operator') {
                 return display.textContent = "0.";
+            }
+            if (previousKeyType === 'calculate') {
+                display.textContent = "0.";
+                displayTwo.textContent = "";
+                delete calculator.dataset.previousKeyType
+                delete calculator.dataset.firstValue;
+                delete calculator.dataset.operator;
+                delete calculator.dataset.finalCalc
+                delete calculator.dataset.previousKeyType
+                return
             }
             display.textContent += "."
         }
