@@ -1,4 +1,5 @@
 const calculator = document.getElementById("calculator")
+const displayTwo = calculator.querySelector("#display-two")
 const display = calculator.querySelector("#display-one")
 const keys = calculator.querySelector("#keys")
 
@@ -16,14 +17,6 @@ const operate = (operator, number1, number2) => {
                 : divide(number1, number2)
 }
 
-const displayNumber = (num) => {
-    // Check if the first number is zero then replace it
-    if (display.textContent === '0') {
-        display.textContent = num;
-    } else {
-        display.textContent += num;
-    }
-}
 
 // Handle calculator key press event function
 const handleKeyPress = (e) => {
@@ -32,18 +25,29 @@ const handleKeyPress = (e) => {
         const key = e.target
         const action = key.dataset.action
         const displayedNumber = display.textContent
+        const previousKeyType = calculator.dataset.previousKeyType
 
         // Get number keys
         if (!action) {
-            displayNumber(key.textContent)
+            // If number is zero or previousKeyType is operator then replace num
+            if (displayedNumber === '0' || previousKeyType === "operator") {
+                display.textContent = key.textContent;
+                delete calculator.dataset.previousKeyType;
+            } else {
+                display.textContent += key.textContent;
+            }
         }
 
         // When user presses an operator
         if (action === "+" || action === "-" ||
-            action === "&times;" || action === "÷") {
-            // Store the first number in a variable
+            action === "×" || action === "÷") {
+            // Store the first number in a variable, operator (dataset)
             calculator.dataset.firstValue = displayedNumber;
             calculator.dataset.operator = action;
+            // Display the first value and operator on Top display
+            displayTwo.textContent = `${displayedNumber} ${action}`;
+            // Make Previous key as Operator
+            calculator.dataset.previousKeyType = "operator";
         }
     }
 }
