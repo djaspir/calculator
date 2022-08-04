@@ -3,17 +3,17 @@ const displayTwo = calculator.querySelector("#display-two")
 const display = calculator.querySelector("#display-one")
 const keys = calculator.querySelector("#keys")
 
-// 4 basic math functions
-const add = (number1, number2) => number1 + number2;
-const subtract = (number1, number2) => number1 - number2;
-const multiply = (number1, number2) => number1 * number2;
-const divide = (number1, number2) => number1 / number2;
+// 4 basic math functions parseFloat the string
+const add = (number1, number2) => parseFloat(number1) + parseFloat(number2);
+const subtract = (number1, number2) => parseFloat(number1) - parseFloat(number2);
+const multiply = (number1, number2) => parseFloat(number1) * parseFloat(number2);
+const divide = (number1, number2) => parseFloat(number1) / parseFloat(number2);
 
 // Operate math function
 const operate = (operator, number1, number2) => {
-    return (operator === "add") ? add(number1, number2)
-        : (operator === "subtract") ? subtract(number1, number2)
-            : (operator === "multiply") ? multiply(number1, number2)
+    return (operator === "+") ? add(number1, number2)
+        : (operator === "-") ? subtract(number1, number2)
+            : (operator === "×") ? multiply(number1, number2)
                 : divide(number1, number2)
 }
 
@@ -26,6 +26,7 @@ const handleKeyPress = (e) => {
         const action = key.dataset.action
         const displayedNumber = display.textContent
         const previousKeyType = calculator.dataset.previousKeyType
+
 
         // Get number keys
         if (!action) {
@@ -48,6 +49,22 @@ const handleKeyPress = (e) => {
             displayTwo.textContent = `${displayedNumber} ${action}`;
             // Make Previous key as Operator
             calculator.dataset.previousKeyType = "operator";
+        }
+
+        // When user presses equals button
+        if (action === "calculate") {
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const secondValue = displayedNumber;
+            console.log(firstValue)
+            console.log(secondValue)
+
+            // If firstValue and operator and secondValue is not null
+            if (firstValue && operator && secondValue) {
+                // Execute operate function and display to the screen one and two
+                display.textContent = operate(operator, firstValue, secondValue)
+                displayTwo.textContent = `${display.textContent} ${operator}`
+            }
         }
     }
 }
