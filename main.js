@@ -80,6 +80,15 @@ const handleKeyPress = (e) => {
         if (action === "clear") {
             display.textContent = "0";
         }
+
+        // When user presses decimal
+        if (action === "decimal") {
+            if (display.textContent.includes(".")) return
+            if (previousKeyType === 'operator') {
+                return display.textContent = "0.";
+            }
+            display.textContent += "."
+        }
     }
 }
 
