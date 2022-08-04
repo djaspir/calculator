@@ -66,6 +66,20 @@ const handleKeyPress = (e) => {
                 displayTwo.textContent = `${display.textContent} ${operator}`
             }
         }
+
+        // When user presses delete button
+        if (action === "delete") {
+            if (displayedNumber.length === 1) {
+                display.textContent = "0";
+                return
+            }
+            display.textContent = displayedNumber.slice(0, displayedNumber.length - 1);
+        }
+
+        // When user presses clear button
+        if (action === "clear") {
+            display.textContent = "0";
+        }
     }
 }
 
