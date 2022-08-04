@@ -111,8 +111,19 @@ const handleKeyPress = (e) => {
             const operator = calculator.dataset.operator;
             const secondValue = displayedNumber;
 
+            // TODO
             if (previousKeyType === "calculate") {
+                const firstValue = calculator.dataset.finalCalc
+                const secondValue = calculator.dataset.secondCalcValue
 
+                display.textContent = operate(operator, firstValue, secondValue)
+
+                displayTwo.textContent = `${firstValue} ${operator} ${secondValue} =`
+
+                calculator.dataset.secondCalcValue = secondValue
+                calculator.dataset.finalCalc = display.textContent
+                calculator.dataset.previousKeyType = 'calculate'
+                return
             }
             // If firstValue and operator and secondValue is not null
             if (firstValue && operator && secondValue) {
@@ -121,6 +132,7 @@ const handleKeyPress = (e) => {
                 displayTwo.textContent = `${firstValue} ${operator} ${secondValue} =`
 
                 calculator.dataset.finalCalc = display.textContent;
+                calculator.dataset.secondCalcValue = secondValue;
                 calculator.dataset.previousKeyType = 'calculate';
             }
         }
